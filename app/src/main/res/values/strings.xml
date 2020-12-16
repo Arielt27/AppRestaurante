@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">AppRestaurante</string>
+    <string name="EmptyText"> </string>
+    <string name="Ofertas">Ofertas</string>
+    <string name="Login">Iniciar Sesión</string>
+    <string name="Logo"> </string>
+    <string name="Search">Buscar: </string>
+    <string name="Categories">Categorias</string>
+    <string name="UserName">Nombre y Apellido</string>
+    <string name="Puntuados">Restaurantes Puntuados: 0</string>
+    <string name="Visitas">Visitas Registradas: 0</string>
+    <string name="Favoritos">Restaurantes Favoritos</string>
+    <string name="Reseñas">Mis Reseñas</string>
+    <string name="Recientes">Visitados Recientemente</string>
+    <string name="Recomendaciones">Recomendados para ti</string>
+    <string name="NombreRestaurante">Nombre del Restaurante</string>
+    <string name="Location">Ubicacion: </string>
+    <string name="Phone">Telefono: </string>
+    <string name="Horario">Horario de atencion: </string>
+    <string name="ReseñasUsuarios">Calificacion de Usuarios</string>
+    <string name="Visita">Registrar Visita</string>
+    <string name="NroReseñas">Reseñas: 0</string>
+    <string name="Calificar">Califica este restaurante</string>
 </resources>
