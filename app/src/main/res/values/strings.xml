@@ -21,4 +21,5 @@
     <string name="Visita">Registrar Visita</string>
     <string name="NroReseñas">Reseñas: 0</string>
     <string name="Calificar">Califica este restaurante</string>
+    <string name="SampleTxt">Texto de ejemplo</string>
 </resources>
