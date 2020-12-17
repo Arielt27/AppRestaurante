@@ -11,8 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity5"></activity>
         <activity android:name=".MainActivity4" />
-        <activity android:name=".MainActivity3" />
-        <activity android:name=".MainActivity2" />
+        <activity android:name=".UserScreen" />
+        <activity android:name=".SearchScreen"/>
+        <activity android:name=".HomeScreen" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

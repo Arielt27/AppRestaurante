@@ -2,11 +2,8 @@ package com.restaurante
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -15,7 +12,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.login_screen.*
 
 
 class MainActivity : AppCompatActivity(){
@@ -26,7 +23,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.login_screen)
 
         auth= FirebaseAuth.getInstance()
         initializeUI()
@@ -38,7 +35,7 @@ class MainActivity : AppCompatActivity(){
         //Validar que no exista otra instancia corriendo
         val usuario = FirebaseAuth.getInstance().currentUser
         if(usuario != null){
-            val intent = Intent(this, MainActivity2::class.java)
+            val intent = Intent(this, HomeScreen::class.java)
             startActivity(intent)
             //finish()
         }
@@ -70,7 +67,6 @@ class MainActivity : AppCompatActivity(){
             try{
                 val account = task.getResult(ApiException::class.java)
                 if(account != null){
-                    println("hola")
                     googleFirebaseAuth(account)
                 }
             }catch (e:ApiException){
@@ -84,11 +80,12 @@ class MainActivity : AppCompatActivity(){
         val credenciales = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credenciales).addOnCompleteListener{
             if(it.isSuccessful){
-                val intent = Intent(this, MainActivity2::class.java)
+                val intent = Intent(this, HomeScreen::class.java)
                 startActivity(intent)
             }else{
                 Toast.makeText(this,"Fallo inicio de sesión", Toast.LENGTH_LONG).show()
             }
         }
     }
+
 }
