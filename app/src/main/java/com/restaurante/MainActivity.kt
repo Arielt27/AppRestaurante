@@ -15,17 +15,18 @@ import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.login_screen.*
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var signInOptions: GoogleSignInOptions
     private lateinit var signInClient: GoogleSignInClient
     val RC_SIGN_IN: Int = 1
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_screen)
 
-        auth= FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
         initializeUI()
         setupGoogleLogin()
     }
@@ -34,14 +35,14 @@ class MainActivity : AppCompatActivity(){
         super.onStart()
         //Validar que no exista otra instancia corriendo
         val usuario = FirebaseAuth.getInstance().currentUser
-        if(usuario != null){
+        if (usuario != null) {
             val intent = Intent(this, HomeScreen::class.java)
             startActivity(intent)
             //finish()
         }
     }
 
-    private fun setupGoogleLogin(){
+    private fun setupGoogleLogin() {
         signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -49,8 +50,8 @@ class MainActivity : AppCompatActivity(){
         signInClient = GoogleSignIn.getClient(this, signInOptions)
     }
 
-    private fun initializeUI(){
-        google_button.setOnClickListener{
+    private fun initializeUI() {
+        google_button.setOnClickListener {
             login()
         }
     }
@@ -62,30 +63,52 @@ class MainActivity : AppCompatActivity(){
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try{
+            try {
                 val account = task.getResult(ApiException::class.java)
-                if(account != null){
+                if (account != null) {
                     googleFirebaseAuth(account)
                 }
-            }catch (e:ApiException){
+            } catch (e: ApiException) {
                 println(e.message)
-                Toast.makeText(this,"Fallo inicio de sesión", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Fallo inicio de sesión", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    private fun googleFirebaseAuth(acct: GoogleSignInAccount){
+    private fun googleFirebaseAuth(acct: GoogleSignInAccount) {
         val credenciales = GoogleAuthProvider.getCredential(acct.idToken, null)
-        auth.signInWithCredential(credenciales).addOnCompleteListener{
-            if(it.isSuccessful){
+        auth.signInWithCredential(credenciales).addOnCompleteListener {
+            if (it.isSuccessful) {
                 val intent = Intent(this, HomeScreen::class.java)
                 startActivity(intent)
-            }else{
-                Toast.makeText(this,"Fallo inicio de sesión", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Fallo inicio de sesión", Toast.LENGTH_LONG).show()
             }
         }
     }
 
+    object SingletonRests {
+
+        var restaurants = listOf<Restaurant>()
+        var restauranteActual = "DEFECTO"
+
+        fun setList(restaurantList: List<Restaurant>) {
+            restaurants = restaurantList
+        }
+
+         fun getName(i: Int) : String{
+            return restaurants[i].nombre
+        }
+
+        fun get(i:Int):Restaurant
+        {
+            return restaurants[i]
+        }
+
+        fun size() : Int{
+            return restaurants.size
+        }
+    }
 }

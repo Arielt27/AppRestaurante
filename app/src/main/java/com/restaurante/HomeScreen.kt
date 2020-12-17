@@ -1,23 +1,28 @@
 package com.restaurante
 
+import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.home_screen.*
+import kotlinx.android.synthetic.main.layout_view_holder.*
+
 
 class HomeScreen : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseDatabase
     lateinit var rcvRestaurant: RecyclerView
+    var singleton = MainActivity.SingletonRests
 
-
-    val TAG = "FBDemo"
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_screen)
 
@@ -33,6 +38,15 @@ class HomeScreen : AppCompatActivity() {
         rcvRestaurant = RecyvlerVw
         rcvRestaurant.layoutManager = LinearLayoutManager(this)
         rcvRestaurant.adapter = restaurantListAdapter
+
+    }
+
+    fun restaurantScreen(view: View)
+    {
+        singleton.restauranteActual = nombreRestauranteTxT.text.toString()
+        val intent = Intent(this, RestaurantScreen::class.java)
+
+        startActivity(intent)
     }
 
     fun homeScreen(view: View)
@@ -52,12 +66,10 @@ class HomeScreen : AppCompatActivity() {
 
     fun userScreen(view: View)
     {
-        val intent = Intent(this,UserScreen::class.java)
+        val intent = Intent(this, UserScreen::class.java)
 
         startActivity(intent)
     }
-
-
 
 
 }
